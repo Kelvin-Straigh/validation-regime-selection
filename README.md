@@ -6,7 +6,7 @@ This repository holds the code and supporting data for the paper:
 
 Author: Kelvin Afriyie Apenteng
 ORCID: 0009-0000-5856-3082
-Preprint: [SSRN link to add]
+Preprint: [https://ssrn.com/abstract=6991119]
 
 ## What the paper shows
 
