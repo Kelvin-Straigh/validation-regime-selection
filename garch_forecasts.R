@@ -28,7 +28,8 @@ rv_actual     <- test$rv_gk          # test target (variance), for sanity and al
 n_test  <- nrow(test)
 n_train <- length(returns_train)
 
-# returns_all spans fit-data + test, so the expanding window can walk into the test.
+# returns_all is pre-2013 fit-data glued to 2020+ test; 2013-2019 is intentionally
+# excluded so GARCH is span-matched to the DL training window (no recency advantage).
 returns_all <- c(returns_train, returns_test)
 cat("Train (2000-2012):", n_train, "| Test (2020+):", n_test, "\n")
 
@@ -62,7 +63,8 @@ f_gjr_static  <- static_forecast(spec_gjr,  returns_train, n_test, "GJR-GARCH-t"
 
 # ============================================================
 # 4. ROLLING forecasts: expanding window from the train boundary, daily refit.
-#    By 2020 the window includes 2013-2019, so it adapts as crisis data enters.
+#    Span-matched: returns_all is c(train, test), so 2013-2019 is excluded from
+#    estimation and the window walks pre-2013 into the 2020+ test only.
 # ============================================================
 rolling_forecast <- function(spec, returns_all, n_train, n_test, name) {
   cat("Forecasting:", name, "\n")
